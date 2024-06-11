@@ -1,0 +1,38 @@
+version: '1.1'
+
+services:
+  mongodb:
+    container_name: mongodb.db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - tedu_exam
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: Admin@123$$
+        
+  
+  sqlserver:
+    container_name: sqlserver.db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1434:1434"
+    volumes:
+      - sqlserver-data:/var/lib/mssql/data
+    networks:
+      - tedu_exam
+    restart: always
+    environment:
+      SA_PASSWORD: Dinh@123$$
+      ACCEPT_EULA: Y
+      
+networks:
+  tedu_exam:
+    driver: bridge
+volumes:
+  mongo-data:
+  sqlserver-data:
